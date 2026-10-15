@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Boring title to fool filters and anyone looking at your tabs -->
     <title>Advanced Algebra 2 Graphing Calculator & Solver</title>
     <meta name="description" content="Free online graphing calculator, matrix solver, and polynomial arithmetic engine for high school mathematics.">
-    
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             background-color: #f8f9fa;
             color: #333;
             margin: 0;
@@ -33,8 +31,9 @@
             margin-bottom: 30px;
         }
         label { display: block; font-weight: 600; margin-bottom: 8px; color: #495057; }
-        .input-group { display: flex; gap: 10px; }
-        /* This is secretly your proxy search bar */
+        
+        /* The template's native form engine */
+        form { display: flex; gap: 10px; }
         input[type="text"] {
             flex: 1;
             padding: 12px;
@@ -42,7 +41,7 @@
             border-radius: 4px;
             font-size: 16px;
         }
-        button {
+        input[type="submit"] {
             background: #007bff;
             color: white;
             border: none;
@@ -52,7 +51,7 @@
             cursor: pointer;
             font-weight: 500;
         }
-        button:hover { background: #0056b3; }
+        input[type="submit"]:hover { background: #0056b3; }
         .educational-text {
             font-size: 14px;
             line-height: 1.6;
@@ -70,12 +69,13 @@
     <div class="subtitle">Calculus & Algebra II Reference Tool • Module 4.2</div>
     
     <div class="solver-box">
-        <label for="math-input">Enter Function, Equation, or Dataset Matrix:</label>
-        <div class="input-group">
-            <!-- Type a URL or website name here -->
-            <input type="text" id="math-input" placeholder="e.g., f(x) = 2x^2 + 5x - 3 or google.com">
-            <button onclick="handleSolve()">Solve</button>
-        </div>
+        <label for="uv-address">Enter Function, Equation, or Dataset Matrix:</label>
+        
+        <!-- Crucial: We use the exact ID and routing attributes the template uses -->
+        <form id="uv-form">
+            <input type="text" id="uv-address" placeholder="e.g., f(x) = 2x^2 + 5x - 3 or google.com">
+            <input type="submit" value="Solve">
+        </form>
     </div>
 
     <div class="educational-text">
@@ -85,29 +85,9 @@
     </div>
 </div>
 
-<!-- Ultraviolet Injection Scripts -->
-<script src="/uv/uv.bundle.js"></script>
-<script src="/uv/uv.config.js"></script>
-<script>
-    function handleSolve() {
-        const input = document.getElementById('math-input').value.trim();
-        if (!input) return;
-
-        // Standard Ultraviolet URL processing
-        let url = input;
-        if (!url.startsWith('http://') && !url.startsWith('https://')) {
-            // If it doesn't look like a URL, it searches Google
-            if (url.includes('.') && !url.includes(' ')) {
-                url = 'https://' + url;
-            } else {
-                url = 'https://google.com' + encodeURIComponent(url);
-            }
-        }
-
-        // Redirects through the Ultraviolet service worker routing
-        window.location.href = __uv$config.prefix + __uv$config.encodeUrl(url);
-    }
-</script>
+<!-- Only script required: The template injects everything else directly via index.js -->
+<script src="index.js" defer></script>
 
 </body>
 </html>
+
